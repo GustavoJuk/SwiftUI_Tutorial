@@ -16,7 +16,7 @@ struct LandmarkDetail: View {
     }
     
     var body: some View {
-        VStack {
+        ScrollView {
             MapView(coordinate: landmark.locationCoordinate)
                 .ignoresSafeArea(edges: .top)
                 .frame(height: 300)
@@ -25,33 +25,31 @@ struct LandmarkDetail: View {
                 .offset(y: -130)
                 .padding(.bottom, -130)
             
-            ScrollView {
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(landmark.name)
-                            .font(.title)
-                            .foregroundColor(.primary)
-                        
-                        FavoriteButton(isSet: $modelData.landmarks[landmarkIndex].isFavorite)
-                    }
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(landmark.name)
+                        .font(.title)
+                        .foregroundColor(.primary)
                     
-                    HStack {
-                        Text(landmark.park)
-                        Spacer()
-                        Text(landmark.state)
-                    }
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    
-                    Divider()
-                    
-                    Text("About \(landmark.name)")
-                        .font(.title2)
-                    Text(landmark.description)
-                        .offset(y: 10)
+                    FavoriteButton(isSet: $modelData.landmarks[landmarkIndex].isFavorite)
                 }
-                .padding()
+                
+                HStack {
+                    Text(landmark.park)
+                    Spacer()
+                    Text(landmark.state)
+                }
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                
+                Divider()
+                
+                Text("About \(landmark.name)")
+                    .font(.title2)
+                Text(landmark.description)
+                    .offset(y: 10)
             }
+            .padding()
         }
         .navigationTitle(landmark.name)
         .navigationBarTitleDisplayMode(.inline)
